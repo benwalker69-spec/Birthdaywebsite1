@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Aiza | My Queen</title>
+    
+    <!-- Scripts & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink-light: #ff85a2;
+            --pink-dark: #ff4d6d;
+            --black-matte: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--black-matte);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .cursive { font-family: 'Dancing Script', cursive; }
+        .fancy { font-family: 'Pacifico', cursive; }
+
+        /* Pulsing Heart Animation */
+        .heart-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20rem;
+            color: rgba(255, 77, 109, 0.15);
+            z-index: -1;
+            animation: heartPulse 2.5s infinite ease-in-out;
+            filter: blur(5px);
+        }
+
+        @keyframes heartPulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.25; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 133, 162, 0.2);
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+        }
+
+        .active-page {
+            display: flex;
+            opacity: 1;
+        }
+
+        .btn-glow {
+            background: linear-gradient(45deg, var(--pink-light), var(--pink-dark));
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 35px rgba(255, 77, 109, 0.8);
+        }
+
+        #confetti-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 90;
+        }
+
+        @media (max-width: 768px) {
+            .heart-bg { font-size: 12rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio (Sweet Happy Birthday Piano Melody) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://www.chosic.com/wp-content/uploads/2021/05/Happy-Birthday-Piano-Version.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Toggle -->
+    <div onclick="toggleMusic()" class="fixed top-5 left-5 z-[110] cursor-pointer bg-white/10 p-3 rounded-full border border-pink-500/30 backdrop-blur-md">
+        <i id="musicIcon" class="fas fa-music text-pink-400"></i>
+    </div>
+
+    <!-- Background Components -->
+    <canvas id="confetti-layer"></canvas>
+    <div class="heart-bg"><i class="fas fa-heart"></i></div>
+
+    <!-- PAGE 1: LANDING -->
+    <section id="page1" class="page active-page">
+        <div class="text-center">
+            <h3 class="uppercase tracking-[0.5em] text-pink-400 mb-4 opacity-80">Birthday Wishes For</h3>
+            <h1 class="fancy text-7xl md:text-9xl text-white mb-6 drop-shadow-lg">Aiza</h1>
+            <p class="cursive text-2xl md:text-3xl text-pink-200 mb-10 px-4">
+                "You are the most beautiful chapter in my life."
+            </p>
+            <button onclick="changePage(2)" class="btn-glow px-12 py-4 rounded-full font-bold text-lg uppercase tracking-widest">
+                Open <i class="fas fa-heart ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- PAGE 2: THE CAKE -->
+    <section id="page2" class="page">
+        <div class="text-center max-w-4xl">
+            <div class="mb-8 transform hover:scale-110 transition-transform duration-500">
+                <img src="https://cdn-icons-png.flaticon.com/512/2682/2682413.png" class="w-56 md:w-72 mx-auto drop-shadow-[0_0_30px_rgba(255,133,162,0.6)]" alt="Birthday Cake">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 mb-10">
+                <div class="glass-card p-6 cursive text-2xl text-pink-100">Sweet as your smile</div>
+                <div class="glass-card p-6 cursive text-2xl text-pink-100">Beautiful as your heart</div>
+                <div class="glass-card p-6 cursive text-2xl text-pink-100">Bright as your soul</div>
+                <div class="glass-card p-6 cursive text-2xl text-pink-100">Pure as your love</div>
+            </div>
+            <button onclick="changePage(3)" class="btn-glow px-12 py-4 rounded-full font-bold text-lg uppercase">
+                A letter for you <i class="fas fa-envelope-open-text ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- PAGE 3: THE LETTER -->
+    <section id="page3" class="page">
+        <div class="glass-card p-8 md:p-14 max-w-2xl mx-4 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-20 text-4xl text-pink-500">
+                <i class="fas fa-quote-right"></i>
+            </div>
+            <h2 class="fancy text-3xl text-pink-400 mb-6 border-b border-pink-500/20 pb-4">Dearest Aiza,</h2>
+            <div class="space-y-4 text-gray-200 leading-relaxed text-sm md:text-base">
+                <p>I never knew how much my life could change until the day you unexpectedly walked into it. You are the one with whom I feel comfortable while talking. If you ask a reason, I don't know why! 😅</p>
+                <p>Listening to you, talking to you, and simply knowing you exist has changed me in the most positive ways. I don't have the courage to ask you to go on a coffee—not because I'm afraid, but because I respect you so much. 😊</p>
+                <p>On your birthday, I wish for your laughter to stay forever, and that you get a person who can afford that Gucci belt! By the way... if you allow me, I certainly can. 🤗</p>
+                <p class="cursive text-3xl text-pink-300 pt-6">Warmly and stay blessed.</p>
+            </div>
+        </div>
+        <button onclick="changePage(1)" class="mt-8 text-pink-400 hover:text-white transition-all underline underline-offset-8">
+            Read again <i class="fas fa-redo-alt ml-2"></i>
+        </button>
+    </section>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+
+        // Page Navigation
+        function changePage(num) {
+            const current = document.querySelector('.active-page');
+            const next = document.getElementById('page' + num);
+
+            // Play music on first button click
+            if(music.paused) {
+                music.play().catch(e => console.log("Music play blocked"));
+                musicIcon.classList.add('fa-spin');
+            }
+
+            // Burst of confetti on every page change
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff85a2', '#ff4d6d', '#ffffff']
+            });
+
+            gsap.to(current, { opacity: 0, scale: 0.9, duration: 0.5, onComplete: () => {
+                current.classList.remove('active-page');
+                next.classList.add('active-page');
+                gsap.fromTo(next, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.7)" });
+            }});
+        }
+
+        // Music Control Toggle
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                musicIcon.classList.add('fa-spin');
+            } else {
+                music.pause();
+                musicIcon.classList.remove('fa-spin');
+            }
+        }
+
+        // Continuous Party Poppers Logic
+        function continuousConfetti() {
+            const duration = 15 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                confetti(Object.assign({}, defaults, { 
+                    particleCount: 2, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+                }));
+                confetti(Object.assign({}, defaults, { 
+                    particleCount: 2, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+                }));
+            }, 300);
+        }
+        
+        continuousConfetti();
+        
+        // Entry Animation
+        gsap.from(".fancy", { opacity: 0, y: 50, duration: 1.5, ease: "power4.out" });
+    </script>
+</body>
+</html>
